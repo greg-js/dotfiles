@@ -1,0 +1,5 @@
+#!/bin/bash
+## mpv wrapper to make it run entirely in the background and disowned by the terminal window
+
+mpv --really-quiet --hwdec=no "$@" &
+disown

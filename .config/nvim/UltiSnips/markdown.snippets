@@ -1,0 +1,133 @@
+snippet [ "markdown link"
+[${1:title}](${2:link}) $0
+endsnippet
+
+snippet !more "Read more tag" b
+<!-- more -->
+
+$0
+endsnippet
+
+snippet tick "inline tick"
+\`$1\` $0
+endsnippet
+
+snippet ticks "backtick codeblock" b
+\`\`\` ${1:language} ${2:title} ${3:url} ${4:link_title}
+$5
+\`\`\`
+
+$0
+endsnippet
+
+snippet block "blockquote tag plugin" b
+{% blockquote ${1:author} ${2:link} ${3:link_title} %}
+$4
+{% endblockquote %}
+
+$0
+endsnippet
+
+snippet pull "pullquote tag plugin" b
+{% pullquote ${1:class} %}
+$2
+{% endpullquote %}
+
+$0
+endsnippet
+
+snippet code "code block tag plugin" b
+{% codeblock lang:$1 ${2:title} %}
+$3
+{% endcodeblock %}
+
+$0
+endsnippet
+
+snippet codeblock "code block tag plugin with all options" b
+{% codeblock lang:$1 ${2:line_number:false} ${3:highlight:false} ${4:title} ${5:url} ${6:link_title} %}
+$7
+{% endcodeblock %}
+
+$0
+endsnippet
+
+snippet raw "raw tag plugin" b
+{% raw %}
+$1
+{% endraw %}
+
+$0
+endsnippet
+
+snippet jsfiddle "jsFiddle snippet tag plugin" b
+{% jsfiddle ${1:shorttag} ${2:tabs} ${3:skin} ${4:width} ${5:height} %}
+
+$0
+endsnippet
+
+snippet gist "gist snippet tag plugin" b
+{% gist ${1:gist_id} ${2:filename} %}
+
+$0
+endsnippet
+
+snippet iframe "iframe snippet tag plugin" b
+{% iframe ${1:url} ${2:width} ${3:height} %}
+
+$0
+endsnippet
+
+snippet img "image tag plugin" b
+{% img ${1:class names} ${2:image path} ${3:width} ${4:height} ${5:title text} ${6:alt text} %}
+
+$0
+endsnippet
+
+snippet link "link tag plugin"
+{% link ${1:text} ${2:url} ${3:external} ${4:title} %}
+
+$0
+endsnippet
+
+snippet incl "include code snippet tag plugin" b
+{% include_code ${1:title} lang:${2:language} ${3:path} %}
+
+$0
+endsnippet
+
+snippet youtube "YouTube snippet tag plugin" b
+{% youtube ${1:video id} %}
+
+$0
+endsnippet
+
+snippet vimeo "Vimeo snippet tag plugin" b
+{% vimeo ${1:video id} %}
+
+$0
+endsnippet
+
+snippet ppath "post path snippet tag plugin"
+{% post_path ${1:slug} %}
+endsnippet
+
+snippet plink "post link slug snippet tag plugin"
+{% post_link ${1:slug} ${2:title} %}
+endsnippet
+
+snippet asspath "asset path tag plugin"
+{% asset_path ${1:slug} %}
+endsnippet
+
+snippet assimg "asset image tag plugin" b
+{% asset_img ${1:image slug} ${2:image title} %}
+
+$0
+endsnippet
+
+snippet asslink "asset link tag plugin" b
+{% asset_img ${1:link slug} ${2:link title} %}
+endsnippet
+
+# vim:ft=snippets:

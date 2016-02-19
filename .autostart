@@ -1,0 +1,22 @@
+#!/bin/bash
+## custom autostart script
+
+sleep 1
+
+# start redshift if it's not running
+REDSHIFT=$(ps aux | grep redshift-gtk | wc -l)
+if [ $REDSHIFT -eq 1 ]; then
+  redshift-gtk &
+fi
+
+# make caps lock a control key
+setxkbmap -option ctrl:nocaps
+
+# handle mediakeys with xbindkeys
+xbindkeys
+
+# load compton
+compton -b --config $HOME/.config/compton.conf
+
+# set wallpaper
+feh --bg-fill /media/data/wallpapers/hires/X39qMYI.jpg

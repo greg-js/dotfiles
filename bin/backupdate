@@ -1,0 +1,90 @@
+#!/bin/bash
+
+if [ "$(whoami)" != "root" ]; then
+  echo "backupdate must be run as root"
+  exit 1
+fi
+
+if [ ! -d /media/BStorage ]; then
+  echo "no access to /media/BStorage"
+  exit 1
+fi
+
+backupdir="/media/BStorage/backup"
+backuplog="$backupdir/last-backup.log"
+errorlog="$backupdir/errors.log"
+
+if [ ! -d $backupdir ]; then
+  mkdir $backupdir
+fi
+
+if [ ! -f $backuplog ]; then
+  touch $backuplog
+fi
+
+if (( $(wc -l < $errorlog) > 2 )); then
+  echo "error log still has errors in it, fix issues and delete or wipe file (path copied to clipboard)"
+  printf $errorlog | xclip -sel clip
+  exit 1
+fi
+
+cp $backuplog $backupdir/previous-backup.log
+
+printf "error log for $(date +%F_%R)\\n\\n" > $errorlog
+
+echo
+echo "updating package lists..."
+
+if [ ! -d $backupdir/packages ]; then
+  mkdir $backupdir/packages
+fi
+
+pacman -Qqe | grep -v "$(pacman -Qqm)" > $backupdir/packages/pacman.lst 2>> $errorlog
+pacman -Qqm > $backupdir/packages/yaourt.lst 2>> $errorlog
+
+echo "done"
+echo
+
+printf "backup date: $(date)\n\nSTART INCREMENTAL ROOT BACKUP\n\n" > $backuplog
+
+echo "backing up root..."
+
+rsync -aAXv --delete-excluded --exclude-from=/home/greg/.backupdate-root-exclude /* $backupdir/root >> $backuplog 2>> $errorlog
+
+echo "done"
+echo
+
+printf "END INCREMENTAL ROOT BACKUP\n\nSTART INCREMENTAL HOME BACKUP\n\n" >> $backuplog
+
+echo "backing up home..."
+
+if [ ! -d $backupdir/home -o ! -d $backupdir/home/greg ]; then
+  if [ ! -d $backupdir/home ]; then
+    mkdir $backupdir/home
+  fi
+  mkdir $backupdir/home/greg
+fi
+
+rsync -aAXv --delete-excluded --exclude-from=/home/greg/.backupdate-home-exclude /home/greg/ $backupdir/home/greg/ >> $backuplog 2>> $errorlog
+
+echo "done"
+echo
+
+printf "END INCREMENTAL HOME BACKUP\n" >> $backuplog
+
+echo "initiating system upgrade..."
+echo
+
+exec pacnanny -Syu | tee /dev/tty >> $backuplog 2>> $errorlog
+
+echo
+echo "done"
+
+# check if errorlog has stuff in it (except for the first line with the date)
+if (( $(wc -l < $errorlog) > 2 )); then
+  echo "backupdate finished with errors, please check $errorlog (path copied to clipboard)"
+  printf "$errorlog" | xclip -sel clip
+else
+  echo "backupdate complete. logs available in $backupdir (path copied to clipboard)"
+  printf "$backuplog" | xclip -sel clip
+fi

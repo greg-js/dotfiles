@@ -1,0 +1,4 @@
+node_modules
+**/node_modules
+.config/nvim/backup/*
+.config/nvim/undodir/*

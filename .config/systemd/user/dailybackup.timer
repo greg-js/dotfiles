@@ -1,0 +1,14 @@
+[Unit]
+Description=Runs dailybackup every hour
+
+[Timer]
+# Time to wait after booting before running for the first time
+OnBootSec=10min
+# Time between running each consecutive time
+OnUnitActiveSec=24h
+# Make service run if the timer elapsed at least once when the machine was off/inactive
+Persistent=true
+Unit=dailybackup.service
+
+[Install]
+WantedBy=multi-user.target

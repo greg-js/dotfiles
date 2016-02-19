@@ -1,0 +1,64 @@
+#!/bin/bash
+## Automatic backup scheduler, run periodically through a systemd service and timer
+## Dependencies:
+##    /dev/sdb2 and /dev/sdb3 are / and /home respectively
+##    /etc/dumpdates is editable by the user
+##    dump is executable without a password
+
+# hardcoded backup folder
+TOPLOC="/media/BStorage/backups"
+
+FULLDUMPS=$(ls -A ${TOPLOC}/full/ | wc -l)
+INCRDUMPS=$(ls -A ${TOPLOC}/incr/ | wc -l)
+
+echo "FULLDUMPS = ${FULLDUMPS}\tINCRDUMPS = ${INCRDUMPS}"
+
+# set subfolders for full and incremental backups based on amount of existing backups
+if [ ! $FULLDUMPS -o ! $INCRDUMPS ]; then
+  echo "Dump variables don't exist.."
+  exit 1
+else
+  if [ $FULLDUMPS == 0 -a $INCRDUMPS == 0 ] || [ $FULLDUMPS == 1 -a $INCRDUMPS == 5 ] || [ $FULLDUMPS = 2 -a $INCRDUMPS == 10 ]; then
+    MAKEFULL=true
+    LOC="$TOPLOC/full/$(date +%Y-%m-%d)"
+  else
+    LOC="$TOPLOC/incr/$(date +%Y-%m-%d)"
+  fi
+fi
+
+# add + to backup folders if they already exist (happens when a backup has already been made that day)
+if [ -d $LOC ]; then
+  LOC="${LOC}+"
+fi
+
+# set specific destinations for the dumps
+ROOTDEST="${LOC}/root_$(date +%Y-%m-%d).dump"
+HOMEDEST="${LOC}/home_$(date +%Y-%m-%d).dump"
+
+# make the folder
+mkdir -p $LOC
+
+# dump command, level is passed as first argument
+function dumpit() {
+  echo "Level $1 dump to $ROOTDEST initiating"
+  /usr/bin/dump -${1}au -f $ROOTDEST /dev/sdb2
+  echo "Root backup finished"
+  echo "Level $1 dump to $HOMEDEST initiating"
+  /usr/bin/dump -${1}au -f $HOMEDEST /dev/sdb3
+  echo "Home backup finished"
+}
+
+# do full dump if either 5 or 10 incremental dumps exist, or there are both zero incremental and full dumps
+if [ $MAKEFULL ]; then
+  dumpit 0
+  if [ $INCRDUMPS == 10 ]; then
+    # delete the oldest full and five oldest incremental dumps
+    ls -1dt ${TOPLOC}/full/20* | tail -1 | xargs -d "\n" rm -rf
+    ls -1dt ${TOPLOC}/incr/20* | tail -5 | xargs -d "\n" rm -rf
+  fi
+# do an incremental dump in all other cases, no deletions necessary
+else
+  dumpit 5
+fi
+
+echo "backmeup complete"

@@ -1,0 +1,16 @@
+[Unit]
+Description=autostart script to run after boot and resume from sleep/hibernation
+After=basic.target
+After=suspend.target
+After=hibernate.target
+
+[Service]
+User=greg
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=/bin/bash /home/greg/.autostart
+
+[Install]
+WantedBy=basic.target
+WantedBy=suspend.target
+WantedBy=hibernate.target

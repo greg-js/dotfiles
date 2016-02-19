@@ -1,0 +1,17 @@
+#!/bin/python3
+## cleans out the $VIM/.nvim/backup folder
+
+import os, sys
+
+print('Are you SURE you want to clear out the nvim backup folder? (y/N)')
+resp = input()
+
+if not resp in ['y', 'Y', 'yes', 'Yes', 'YES']:
+    print('see ya')
+    sys.exit()
+
+for file in [os.path.join('/home/greg/.config/nvim/backup', f) for f in os.listdir('/home/greg/.config/nvim/backup')]:
+    print('{} deleted'.format(os.path.basename(file)))
+    os.unlink(file)
+
+print('Done')

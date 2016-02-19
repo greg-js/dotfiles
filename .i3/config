@@ -1,0 +1,258 @@
+# i3 config file (v4)
+set $mod Mod4
+
+font pango:Terminess Powerline 8
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# turn off focus follows mouse
+focus_follows_mouse no
+
+# start a terminal
+bindsym $mod+Return exec urxvt
+
+# kill focused window
+bindsym $mod+c kill
+
+# start i3-dmenu-desktop with rofi
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -dmenu -i -p ">"' --entry-type=name
+# bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -f -p '>' -l 20 -fn 'Terminess Powerline-12'" --term="urxvt'" --display-binary
+# bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop --dmenu='rofi -dmenu -i -p ">"' --entry-type=name
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+b split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+y focus parent
+
+# focus the child container
+bindsym $mod+p focus child
+
+# go to previous workspace by pressing same key combo again
+# workspace_auto_back_and_forth yes
+set $w0 "0/other"
+set $w1 "1/www"
+set $w2 "2/code"
+set $w3 "3/docs"
+set $w4 "4/admin"
+set $w5 "5/inbox"
+set $w6 "6/network"
+set $w7 "7/more"
+set $w8 "8/media"
+set $w9 "9/steam"
+
+# switch to workspace
+bindsym $mod+1 workspace $w1
+bindsym $mod+2 workspace $w2
+bindsym $mod+3 workspace $w3
+bindsym $mod+4 workspace $w4
+bindsym $mod+5 workspace $w5
+bindsym $mod+6 workspace $w6
+bindsym $mod+7 workspace $w7
+bindsym $mod+8 workspace $w8
+bindsym $mod+9 workspace $w9
+bindsym $mod+0 workspace $w0
+
+# switch to next/previous active workspace
+bindsym $mod+o workspace next_on_output
+bindsym $mod+i workspace prev_on_output
+
+# move to next/previous active workspace
+bindsym $mod+Shift+o move container to workspace next_on_output
+bindsym $mod+Shift+i move container to workspace prev_on_output
+
+# switch to next previous workspace
+bindsym $mod+bracketleft  workspace prev
+bindsym $mod+bracketright workspace next
+
+# switch to next previous workspace and go there
+bindsym $mod+Shift+bracketleft  move container to workspace prev; workspace prev
+bindsym $mod+Shift+bracketright move container to workspace next; workspace next
+
+# switch to last workspace
+bindsym $mod+z workspace back_and_forth
+
+# switch to last workspace
+bindsym $mod+Shift+z move container to workspace back_and_forth
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $w1
+bindsym $mod+Shift+2 move container to workspace $w2
+bindsym $mod+Shift+3 move container to workspace $w3
+bindsym $mod+Shift+4 move container to workspace $w4
+bindsym $mod+Shift+5 move container to workspace $w5
+bindsym $mod+Shift+6 move container to workspace $w6
+bindsym $mod+Shift+7 move container to workspace $w7
+bindsym $mod+Shift+8 move container to workspace $w8
+bindsym $mod+Shift+9 move container to workspace $w9
+bindsym $mod+Shift+0 move container to workspace $w0
+
+# reload the configuration file
+bindsym $mod+Shift+q reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Start i3bar to display a workspace bar
+bar {
+  # status_command  i3status
+  status_command    py3status -c ~/.config/py3status/config
+  position          top
+  font              pango: Terminess Powerline 10
+  separator_symbol  "|"
+  colors {
+    separator          #dddddd
+    background         #b2b2b2
+    statusline         #505050
+    focused_workspace  #e7e7e7 #e7e7e7 #000000
+    active_workspace   #b2b2b2 #b2b2b2 #333333
+    inactive_workspace #b2b2b2 #b2b2b2 #505050
+    urgent_workspace   #666666 #666666 #b2b2b2
+  }
+}
+
+# assigning programs to specific workspaces
+assign [class="Tor Browser"]                                $w0
+assign [class="Electrum"]                                   $w0
+assign [class="Gpa"]                                        $w0
+# assign [class="Google-chrome" instance="^(?!localhost).*$"] $w1
+assign [class="Skype"]                                      $w5
+assign [class="Pidgin"]                                     $w5
+assign [class="Deluge"]                                     $w6
+assign [class="transmission"]                               $w6
+assign [class="Gnucash"]                                    $w7
+assign [class="Steam"]                                      $w9
+# set $w0 "0/other"
+# set $w1 "1/www"
+# set $w2 "2/code"
+# set $w3 "3/docs"
+# set $w4 "4/admin"
+# set $w5 "5/inbox"
+# set $w6 "6/network"
+# set $w7 "7/more"
+# set $w8 "8/media"
+# set $w9 "9/steam"
+
+# scratchpads
+# tmux = space
+bindsym $mod+Shift+Mod1+space mark "tmux", move scratchpad
+bindsym $mod+Mod1+space [con_mark="tmux"] scratchpad show
+# htop = m = h
+bindsym $mod+Shift+Mod1+m mark "htop", move scratchpad
+bindsym $mod+Shift+Mod1+h mark "htop", move scratchpad
+bindsym $mod+Mod1+m [con_mark="htop"] scratchpad show
+bindsym $mod+Mod1+h [con_mark="htop"] scratchpad show
+
+##################################################
+# RESIZE MODE
+##################################################
+
+# resize window
+set $mode_resize (hjkl) to shrink/grow 5px | super+(hjkl) to shrink/grow 1px | (Return) or (Escape) to cancel
+mode "$mode_resize" {
+  # These bindings trigger as soon as you enter the resize mode
+  bindsym h resize shrink width 5 px or 5 ppt
+  bindsym $mod+h resize shrink width 1 px or 1 ppt
+  bindsym j resize shrink height 5 px or 5 ppt
+  bindsym $mod+j resize shrink height 1 px or 1 ppt
+  bindsym k resize grow height 5 px or 5 ppt
+  bindsym $mod+k resize grow height 1 px or 1 ppt
+  bindsym l resize grow width 5 px or 5 ppt
+  bindsym $mod+l resize grow width 1 px or 1 ppt
+
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym r mode "default"
+  bindsym Control_L+bracketleft mode "default"
+}
+
+bindsym $mod+r mode $mode_resize
+
+##################################################
+# POWER MANAGEMENT MODE
+##################################################
+
+set $mode_power (l)ogout, (s)uspend, (r)eboot, (q)uit | (Return) or (Escape) to cancel
+mode "$mode_power" {
+  bindsym l exec --no-startup-id i3-msg exit, mode "default"
+  # this simple suspend script makes sure to kill all mpv windows before suspending (this seemed to cause crashes in july 2015)
+  bindsym s exec --no-startup-id $HOME/.config/i3scripts/suspend.sh, mode "default"
+  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  bindsym q exec --no-startup-id systemctl poweroff -i, mode "default"
+
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+Pause mode "default"
+  bindsym $mod+F12 mode "default"
+  bindsym Control_L+bracketleft mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_power"
+bindsym $mod+F12   mode "$mode_power"
+
+##################################################
+# GAPS MODE
+##################################################
+
+set $mode_gaps [kj0]|[KJ)] to grow/shrink/remove local|global gaps | (Return) or (Escape) to cancel
+bindsym $mod+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+  bindsym k gaps inner all plus  10
+  bindsym j gaps inner all minus 10
+  bindsym 0 gaps inner all set   0
+
+  bindsym Shift+k gaps inner current plus  10
+  bindsym Shift+j gaps inner current minus 10
+  bindsym Shift+0 gaps inner current set   0
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+g mode "default"
+  bindsym Control_L+bracketleft mode "default"
+}
+
+# border style
+hide_edge_borders both
+# new_window pixel 2
+new_window none
+new_float none
+
+# gaps
+# default
+smart_gaps on
+gaps inner 10
+
+# autostart
+exec --no-startup-id bash /home/greg/.autostart

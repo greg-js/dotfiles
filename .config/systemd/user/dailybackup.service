@@ -1,0 +1,6 @@
+[Unit]
+Description=Daily backup service
+
+[Service]
+Type=simple
+ExecStart=/home/greg/bin/backmeup

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo $(curl http://ipecho.net/plain 2> /dev/null)
+

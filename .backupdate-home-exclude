@@ -1,0 +1,19 @@
+- .cache
+- .dbus
+- .Trash
+- .bzr.log
+- .thumbnails/*
+- .local/share/Trash
+- .xsession-errors*
+- .local/share/Steam
+- .nviminfo
+- .nvimlog
+- .config/chromium
+- .nvim/backup
+- .zsh_history
+- .zcompdump*
+- xfce4-session.verbose-log*
+- .steam
+- .Skype
+- .oh-my-zsh/cache*
+.tor-browser-en

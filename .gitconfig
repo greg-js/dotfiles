@@ -1,0 +1,19 @@
+[user]
+	email = gregory.scheerlinck@gmail.com
+	name = Gregory Scheerlinck
+[push]
+	default = simple
+[core]
+	autocrlf = input
+[pull]
+	rebase = true
+[rerere]
+	enabled = true
+[alias]
+	s = status
+	ss = status -s
+	lg = log --oneline --decorate --all --graph
+[branch]
+	autosetuprebase = always
+[credential]
+	helper = cache --timeout=3600

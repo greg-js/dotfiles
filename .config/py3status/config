@@ -1,0 +1,130 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+        interval = 1
+        output_format = i3bar
+        color_good = "#505050"
+        color_degraded = "#f7f7f7"
+        color_bad = "#bc2b2b"
+}
+
+# order += "ipv6"
+# order += "run_watch DHCP"
+# order += "run_watch VPN"
+# order += "wireless _first_"
+# order += "ethernet _first_"
+# order += "battery 0"
+order += "disk /"
+order += "disk /home"
+order += "disk /media/LStorage"
+order += "disk /media/BStorage"
+order += "disk /media/data"
+order += "cpu_usage"
+order += "load"
+order += "cpu_temperature 0"
+# order += "volume master"
+order += "tztime date"
+order += "tztime time"
+# order += "online_status"
+
+# online_status {
+#   cache_timeout = 30
+#   format_online = ""
+#   format_offline = ""
+# }
+
+disk "/" {
+        format = " %avail"
+        min_width = " 99.9 GB"
+        low_threshold = 10
+        align = "center"
+        prefix_type = "decimal"
+        on_click 1 = "exec thunar /"
+}
+
+disk "/home" {
+        format = " %avail"
+        min_width = " 99.9 GB"
+        low_threshold = 10
+        align = "center"
+        prefix_type = "decimal"
+        on_click 1 = "exec thunar /home/greg"
+}
+
+disk "/media/LStorage" {
+        format = " %avail"
+        min_width = " 99.9 GB"
+        low_threshold = 10
+        align = "center"
+        prefix_type = "decimal"
+        on_click 1 = "exec thunar /media/LStorage/Media"
+}
+
+disk "/media/BStorage" {
+        format = " %avail"
+        min_width = " 99.9 GB"
+        low_threshold = 10
+        align = "center"
+        prefix_type = "decimal"
+        on_click 1 = "exec thunar /media/BStorage"
+}
+
+disk "/media/data" {
+        format = " %avail"
+        min_width = " 999 GB"
+        low_threshold = 5
+        align = "center"
+        prefix_type = "decimal"
+        on_click 1 = "exec thunar /media/data"
+}
+
+cpu_usage {
+        format = " %usage"
+        min_width = " 00%"
+        align = "center"
+        on_click 1 = "exec i3-sensible-terminal -e htop"
+        on_click 3 = "exec i3-sensible-terminal -e killall htop"
+}
+
+load {
+        format = " %1min"
+        align = "center"
+        min_width = " 9.99"
+}
+
+cpu_temperature 0 {
+        format = " %degrees\°C"
+        min_width = " 99°C"
+        path = "/sys/devices/platform/it87.656/temp1_input"
+        max_threshold = 60
+}
+
+# volume master {
+#         format = " %volume"
+#         format_muted = " muted"
+#         min_width = " muted"
+#         align = "center"
+#         device = "default"
+#         mixer = "Master"
+#         mixer_idx = 0
+# }
+
+tztime date {
+        format = " %a %b %d"
+        min_width = " Tue Sep 29"
+        align = "center"
+        on_click 1 = "exec google-chrome http://www.google.com/calendar"
+}
+
+tztime time {
+        format = " %H:%M:%S"
+        min_width = " 99:99:99"
+        align = "center"
+}

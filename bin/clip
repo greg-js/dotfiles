@@ -1,0 +1,54 @@
+#!/bin/python3
+## Saves the current clipboard contents to a keyword for later use
+## clip save keyword
+## clip keyword
+## clip list
+
+import pyperclip, shelve, sys
+
+clip_shelf = shelve.open('clipdb')
+
+def usage():
+    print("usage: `clip save *keyword*` to save | `clip *keyword*` to load | `clip list` to list keywords")
+
+# get arguments
+args = [el.lower() for el in list(sys.argv[1:])]
+first_arg = args[0]
+
+# get keywords
+keywords = list(clip_shelf.keys())
+
+# catch errors
+if (not args) or (first_arg not in ['save', 'list', 'delete', 'clear'] + keywords) or (first_arg in ['save', 'delete'] and len(args) != 2):
+    usage()
+    sys.exit()
+
+# save under new keywords
+if first_arg == 'save':
+    clip_shelf[args[1]] = pyperclip.paste()
+    keywords += args[1]
+
+elif first_arg == 'delete':
+    if clip_shelf[args[1]]:
+        del clip_shelf[args[1]]
+    print('{} clip contents deleted'.format(args[1]))
+
+elif first_arg == 'clear':
+    for keyword in keywords:
+        del clip_shelf[keyword]
+    print('All entries in clip have been cleared')
+
+elif first_arg == 'list':
+    if not keywords:
+        print('Nothing saved with clip yet')
+    else:
+        print('Clip keywords', end=': ')
+        print(', '.join(keywords))
+
+else:
+    copied = clip_shelf[first_arg]
+    pyperclip.copy(copied)
+    print('{} contents copied to clipboard:'.format(first_arg))
+    print(copied)
+
+clip_shelf.close()
