@@ -109,3 +109,6 @@ nmap <Leader>f zf%
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
 " ,<tab> for regular tab
 inoremap <Leader><Tab> <Space><Space>
+
+" tern
+autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>

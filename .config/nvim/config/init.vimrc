@@ -9,6 +9,7 @@ Plug 'w0ng/vim-hybrid'
 
 " general
 " Plug 'ervandew/supertab'
+Plug 'benekastah/neomake'
 Plug 'Shougo/deoplete.nvim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'SirVer/ultisnips'
@@ -35,22 +36,26 @@ Plug 'vim-scripts/camelcasemotion'
 Plug 'myusuf3/numbers.vim'
 Plug 'bling/vim-airline'
 
-" programming
-Plug 'mattn/emmet-vim'
+" javascript
 Plug 'guileen/vim-node-dict'
 Plug 'moll/vim-node'
 Plug 'othree/yajs.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'othree/html5.vim'
-Plug 'othree/csscomplete.vim'
 Plug '1995eaton/vim-better-javascript-completion'
 Plug 'gavocanov/vim-js-indent'
-Plug 'benekastah/neomake'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-Plug 'hail2u/vim-css3-syntax'
 Plug 'digitaltoad/vim-jade'
 Plug 'elzr/vim-json'
-Plug 'groenewege/vim-less'
 Plug 'mxw/vim-jsx'
+
+" elixir
+Plug 'elixir-lang/vim-elixir'
+
+" other
+Plug 'mattn/emmet-vim'
+Plug 'othree/html5.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'othree/csscomplete.vim'
+Plug 'groenewege/vim-less'
 
 call plug#end()

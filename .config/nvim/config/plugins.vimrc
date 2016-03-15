@@ -2,7 +2,7 @@ filetype plugin indent on
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplate#disable_auto_complete = 1
+let g:deoplete#disable_auto_complete = 0
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 if !exists('g:deoplete#omni#input_patterns')
   let g:deoplete#omni#input_patterns = {}
@@ -10,6 +10,7 @@ endif
 
 " neomake config
 autocmd! BufWritePost * Neomake
+" autocmd BufLeave * QFix
 
 let g:neomake_warning_sign = {
   \ 'text': 'W',
@@ -68,8 +69,6 @@ if exists('g:plugs["tern_for_vim"]')
   let g:tern_show_argument_hints = 'on_hold'
   let g:tern_show_signature_in_pum = 1
 
-  augroup terngroup
-    autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
-    autocmd FileType javascript setlocal omnifunc=tern#Complete
-  augroup END
+  autocmd FileType javascript setlocal omnifunc=tern#Complete
 endif
+

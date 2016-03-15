@@ -124,18 +124,18 @@ bindsym $mod+Shift+r restart
 
 # Start i3bar to display a workspace bar
 bar {
-  # status_command  i3status
+  # status_command  i3status -t
   status_command    py3status -c ~/.config/py3status/config
   position          top
   font              pango: Terminess Powerline 10
-  separator_symbol  "|"
+  separator_symbol  "​"
   colors {
-    separator          #dddddd
-    background         #b2b2b2
-    statusline         #505050
-    focused_workspace  #e7e7e7 #e7e7e7 #000000
-    active_workspace   #b2b2b2 #b2b2b2 #333333
-    inactive_workspace #b2b2b2 #b2b2b2 #505050
+    separator          #23211e
+    background         #23211e
+    statusline         #aaaaaa
+    focused_workspace  #1793d1 #23211e #aaaaaa
+    active_workspace   #23211e #23211e #aaaaaa
+    inactive_workspace #23211e #23211e #aaaaaa
     urgent_workspace   #666666 #666666 #b2b2b2
   }
 }
