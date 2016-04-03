@@ -299,7 +299,7 @@ URxvt.keysym.C-C:   perl:clipboard:copy
 URxvt.keysym.C-V:   perl:clipboard:paste
 URxvt.keysym.C-A-V: perl:clipboard:paste_escaped
 
-URxvt*background:   #2b2b2b
+URxvt*background:   #1b1b1b
 URxvt.cursorColor:  #FDA53C
 
 !black
