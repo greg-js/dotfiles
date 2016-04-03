@@ -57,6 +57,7 @@ function restore-bak () {
     fi
   done
 }
+
 wd() {
   . /home/greg/bin/wd/wd.sh
 }

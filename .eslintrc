@@ -12,9 +12,12 @@
     "es6": true,
     "browser": true
   },
-  "ecmaFeatures": {
-    "jsx": true,
-    "experimentalObjectRestSpread": true
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
   },
   "plugins": [
     "react"
