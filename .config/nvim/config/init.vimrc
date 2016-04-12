@@ -34,7 +34,9 @@ Plug 'vim-scripts/camelcasemotion'
 
 " eye candy
 Plug 'myusuf3/numbers.vim'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'lilydjwg/colorizer', { 'on': 'ColorToggle' }
 
 " javascript
 Plug 'guileen/vim-node-dict'
@@ -57,5 +59,13 @@ Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'othree/csscomplete.vim'
 Plug 'groenewege/vim-less'
+
+" text objects
+Plug 'wellle/targets.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'glts/vim-textobj-comment'
+Plug 'kana/vim-textobj-fold'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-function'
 
 call plug#end()

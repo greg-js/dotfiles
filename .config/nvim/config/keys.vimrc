@@ -112,3 +112,6 @@ inoremap <Leader><Tab> <Space><Space>
 
 " tern
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
+" colorizer
+nmap <Leader>tc :ColorToggle<CR>
