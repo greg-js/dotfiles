@@ -27,11 +27,6 @@ nnoremap <Leader>ws :split<CR>
 nnoremap <Leader>wv :vsplit<CR>
 nnoremap <Leader>wx :close<CR>
 
-" command mode maps
-" better command-line window scrolling with <C-P> & <C-N>
-" cnoremap <C-p> <Up>
-" cnoremap <C-n> <Down>
-
 " %% to expand active buffer location on cmdline
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
@@ -60,9 +55,6 @@ map Q gq
 
 " relative line numbers
 nnoremap <Leader>3 :NumbersToggle<CR>
-
-" snippets
-let g:UltiSnipsExpandTrigger="<c-j>"
 
 " remap number increment to C-s (C-a is already in use by tmux)
 nmap <C-s> <C-a>
@@ -105,13 +97,13 @@ nmap <Leader><Space>p :lprev<CR>
 " folding
 nmap <Leader>f zf%
 
-" deoplete tab-complete
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
-" ,<tab> for regular tab
-inoremap <Leader><Tab> <Space><Space>
-
 " tern
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
+" autocomplete
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " colorizer
 nmap <Leader>tc :ColorToggle<CR>

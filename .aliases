@@ -1,3 +1,5 @@
+alias :e='vim'
+
 # xclip aliases
 alias c='xclip -sel clip'
 alias p='xclip -sel clip -o'

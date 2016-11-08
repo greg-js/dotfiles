@@ -65,8 +65,6 @@ set shiftwidth=2
 set autoindent
 set smartindent
 
-set complete-=i
-
 set nrformats-=octal
 
 set ttimeout
@@ -119,3 +117,4 @@ autocmd BufNewFile,BufRead,BufEnter *.md,*.markdown :syntax match markdownIgnore
 " clipboard
 set clipboard=unnamedplus
 
+set completeopt=longest,menuone,preview
